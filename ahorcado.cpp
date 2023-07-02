@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <string.h>
 #include <random>
 
 using namespace std;
@@ -10,6 +11,8 @@ string paises[] = { "bolivia","colombia","argentina","rusia"};//CaseSensitive, d
 
 string temas[] = { "Frutas", "Deportes", "Paises" };
 int vidas = 5;
+int cantidadCaracteresTexto = 0;
+string palabraEscogida;
 
 char letra;
 char palabraCensurada[25];
@@ -31,15 +34,16 @@ int main()
 		cout << "Ingrese una letra: ";
 		cin >> letra;
 		cin.ignore();
-		for (int i = 0; i < 6; i++) {
-			if (frutas[0][i] == letra) {
+		system("cls");
+		for (int i = 0; i < cantidadCaracteresTexto; i++) {
+			if (palabraEscogida[i] == letra) {
 				palabraCensurada[i] = letra;
 				
 			}
 			
 			else {
-				for (int j = 0; j < 6; j++) {
-					if (frutas[0][j] == letra) {
+				for (int j = 0; j < cantidadCaracteresTexto; j++) {
+					if (palabraEscogida[j] == letra) {
 						existeLetra = true;
 						break;
 					}
@@ -54,18 +58,19 @@ int main()
 			
 		}
 		cout << palabraCensurada << endl;
-		if (palabraCensurada == frutas[0]) {
+		if (palabraCensurada == palabraEscogida) {
 			cout << "Felicidades, ganaste con " << vidas << " vidas restantes.";
 			break;
 		}
 	}
+	cout << "Perdiste, la palabra secreta era: " << palabraEscogida;
 	
 	
 }
 
 
 void censurarPalabra() {
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < cantidadCaracteresTexto; i++) {
 		palabraCensurada[i] = '_';
 	}
 	
@@ -77,7 +82,7 @@ void seleccionarTema() {
 		cout << i + 1 << ". " << temas[i]<<endl;
 	}
 	cin >> opcionTema;
-	
+	system("cls");
 }
 
 void randomizarPalabra() {
@@ -87,7 +92,7 @@ void randomizarPalabra() {
 	uniform_int_distribution<> dis(0, 3);	
 	int randomNumber = dis(gen);
 
-	string palabraEscogida;
+	
 	switch (opcionTema)
 	{
 	case 1:
@@ -107,6 +112,7 @@ void randomizarPalabra() {
 	default:
 		break;
 	}
+	cantidadCaracteresTexto = palabraEscogida.size();
 }
 
 
